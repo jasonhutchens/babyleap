@@ -1,0 +1,6 @@
+node_modules/
+www/babyleap.js*
+www/icons/
+TODO.txt
+npm-debug.log
+*.swp
