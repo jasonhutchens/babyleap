@@ -1,5 +1,6 @@
 var path = require('path')
 var webpack = require('webpack')
+var FaviconsWebpackPlugin = require('favicons-webpack-plugin')
 
 var definePlugin = new webpack.DefinePlugin({
   __DEV__: JSON.stringify(JSON.parse(process.env.BUILD_DEV || 'true'))
@@ -15,12 +16,33 @@ module.exports = {
   },
   output: {
     pathinfo: true,
-    path: path.resolve(__dirname, './www/js'),
-    publicPath: './www/js',
+    path: path.resolve(__dirname, './www'),
+    publicPath: './www',
     filename: 'babyleap.js'
   },
   plugins: [
     definePlugin,
+    new FaviconsWebpackPlugin({
+      logo: path.resolve(__dirname, 'src/main.png'),
+      prefix: 'icons/',
+      statsFilename: 'icons.json',
+      persistentCache: true,
+      inject: false,
+      background: '#FFFFFF',
+      title: 'BabyLeap',
+      icons: {
+        android: true,
+        appleIcon: true,
+        appleStartup: true,
+        coast: false,
+        favicons: true,
+        firefox: false,
+        opengraph: false,
+        twitter: false,
+        yandex: false,
+        windows: true
+      }
+    }),
     new webpack.optimize.UglifyJsPlugin({
       drop_console: true,
       minimize: true,
